@@ -1,0 +1,15 @@
+﻿  main.cpp
+c:\users\1\documents\visual studio 2017\projects\openglapp\openglapp\main.cpp(235): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\openglapp\openglapp\main.cpp(255): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\openglapp\openglapp\main.cpp(256): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\openglapp\openglapp\main.cpp(288): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\openglapp\openglapp\main.cpp(343): warning C4244: инициализация: преобразование "double" в "GLfloat", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\openglapp\openglapp\main.cpp(344): warning C4244: инициализация: преобразование "double" в "GLfloat", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\openglapp\openglapp\main.cpp(345): warning C4244: =: преобразование "double" в "GLfloat", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\openglapp\openglapp\main.cpp(346): warning C4244: =: преобразование "double" в "GLfloat", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\openglapp\openglapp\main.cpp(372): warning C4244: -=: преобразование "double" в "float", возможна потеря данных
+  Создание кода...
+  Пропуск... (изменения не обнаружены)
+  Shader.cpp
+  OpenGLApp.vcxproj -> C:\Users\1\documents\visual studio 2017\Projects\OpenGLApp\Debug\OpenGLApp.exe
+  OpenGLApp.vcxproj -> C:\Users\1\documents\visual studio 2017\Projects\OpenGLApp\Debug\OpenGLApp.pdb (Partial PDB)
