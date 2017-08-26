@@ -28,6 +28,7 @@ class Camera
 	glm::vec3 cameraRight;
 	glm::vec3 worldUP;
 
+public:
 	float m_yaw;
 	float m_pitch;
 
@@ -35,16 +36,16 @@ class Camera
 	float m_sens;
 	float m_zoom;
 
-	Camera(glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = defaultYaw, float pitch = defaultPitch):cameraFront(0.0f, 0.0f, -1.0f), m_speed(defaultSpeed), m_zoom(defaultZoom)
+	Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = defaultYaw, float pitch = defaultPitch) : cameraFront(glm::vec3(0.0f, 0.0f, -1.0f)), m_speed(defaultSpeed), m_sens(defaultSens), m_zoom(defaultZoom)
 	{
-		cameraPos = pos;
+		cameraPos = position;
 		worldUP = up;
 		m_yaw = yaw;
 		m_pitch = pitch;
 		updateCameraVectors();
 	}
 
-	Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch):cameraFront(glm::vec3(0.0f, 0.0f, -1.0f)), m_speed(defaultSpeed), m_sens(defaultSens), m_zoom(defaultZoom)
+	Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : cameraFront(glm::vec3(0.0f, 0.0f, -1.0f)), m_speed(defaultSpeed), m_sens(defaultSens), m_zoom(defaultZoom)
 	{
 		cameraPos = glm::vec3(posX, posY, posZ);
 		worldUP = glm::vec3(upX, upY, upZ);
@@ -54,7 +55,7 @@ class Camera
 	}
 
 
-	glm::mat4 getMatrixView()
+	glm::mat4 GetViewMatrix()
 	{
 		return glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 	}
@@ -82,31 +83,35 @@ class Camera
 	void process_mouse_input(float xOffset, float yOffset)
 	{
 		xOffset *= m_sens;
-		yOffset *= m_sens; // Reversed since y-coordinates go from bottom to left
+		yOffset *= m_sens;
 
 		m_yaw += xOffset;
 		m_pitch += yOffset;
 
 		// Make sure that when pitch is out of bounds, screen doesn't get flipped
-		if (m_pitch > 89.0f)
+		
+		if (m_yaw > 89.0f)
 			m_pitch = 89.0f;
 		if (m_pitch < -89.0f)
-			m_pitch = -89.0f;
+			m_yaw = -89.0f;
+
+		// Update Front, Right and Up Vectors using the updated Eular angles
+		updateCameraVectors();
 	}
 
-	void process_mouse_scroll(float offset)
+	void process_mouse_scroll(float yoffset)
 	{
-		if (m_zoom >= 1.0f && m_zoom <= 60.0f)
+		if (m_zoom >= 1.0f && m_zoom <= 45.0f)
 		{
-			m_zoom -= offset;
+			m_zoom -= yoffset;
 		}
 		if (m_zoom <= 1.0f)
 		{
 			m_zoom = 1.0f;
 		}
-		if (m_zoom >= 60.0f)
+		if (m_zoom >= 45.0f)
 		{
-			m_zoom = 60.0f;
+			m_zoom = 45.0f;
 		}
 	}
 
@@ -117,7 +122,7 @@ class Camera
 		front.y = sin(glm::radians(m_pitch));
 		front.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
 		cameraFront = glm::normalize(front);
-
+		// Also re-calculate the Right and Up vector
 		cameraRight = glm::normalize(glm::cross(cameraFront, worldUP));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
 		cameraUp = glm::normalize(glm::cross(cameraRight, cameraFront));
 	}

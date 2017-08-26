@@ -10,28 +10,26 @@
 
 //our libs
 #include "Shader.h"
+#include "Camera.h"
 
 //pre-defined functions
 void framebuffer_callback_resize(GLFWwindow* window, int weight, int height);
-void process_input(GLFWwindow* window);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void process_input(GLFWwindow* window);
 void scroll_callback(GLFWwindow* window, double xOffset, double yOffset);
 
 
 //global configuration(only in this file)
-const unsigned int wHeight = 800;
+const unsigned int wHeight = 800; //window h and w
 const unsigned int wWeight = 600;
 
-float yaw;
-float pitch;
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+float lastX = wWeight / 2.0f;
+float lastY = wHeight / 2.0f;
+
 
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
-
-float fov = 60.0f;
-
-GLfloat lastX = wWeight / 2.0;
-GLfloat lastY = wHeight / 2.0;
 
 int main()
 {
@@ -51,9 +49,11 @@ int main()
 
 	//create widnow object
 	glfwMakeContextCurrent(window);
-	glfwSetScrollCallback(window, scroll_callback);
 	glfwSetFramebufferSizeCallback(window, framebuffer_callback_resize);
 	glfwSetCursorPosCallback(window, mouse_callback);
+	glfwSetScrollCallback(window, scroll_callback);
+
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
@@ -62,37 +62,13 @@ int main()
 	}
 
 	glEnable(GL_DEPTH_TEST);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); //disables cursor
 
 	//build and compile shaders
 	//--------------------------------------------
 	//vertex shader
 	Shader shader("basic_vertex_shader.vs", "basic_fragment_shader.fs");
 
-	//link shaders
-
-	// check for linking errors
-	//glLinkProgram(yellowShaderProgram);
 	
-	//cleaning shaders, they are not needed anymore
-
-
-	//setting up vertex daya
-	//float vertexData[] = {
-	//	0.5f,  0.5f, 0.0f,  // Верхний правый угол
-	//	0.5f, -0.5f, 0.0f,  // Нижний правый угол
-	//	-0.5f, -0.5f, 0.0f,  // Нижний левый угол
-	//	-0.5f,  0.5f, 0.0f   // Верхний левый угол
-	//};
-	/*
-	float vertices[] = {
-		// positions          // colors           // texture coords
-		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
-		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
-		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
-	};
-	*/
 	float vertices[] = {
 		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 		0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -247,12 +223,6 @@ int main()
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture2);
 
-		float radius = 10.0f;
-		float camX = sin(glfwGetTime())* radius;
-		float camZ = cos(glfwGetTime())* radius;
-		//camera
-		
-
 		// activate shader
 		shader.use();
 
@@ -260,15 +230,12 @@ int main()
 		//glm::mat4 model;
 		glm::mat4 projection;
 		//model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.5f, 1.0f, 0.0f));
-		projection = glm::perspective(glm::radians(fov), (float)wWeight / (float)wHeight, 0.1f, 100.0f);
-		// retrieve the matrix uniform locations
-		unsigned int modelLoc = glGetUniformLocation(shader.ID, "model");
-		unsigned int viewLoc = glGetUniformLocation(shader.ID, "view");
-		// pass them to the shaders (3 different ways)
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
-		// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+		projection = glm::perspective(glm::radians(camera.m_zoom), (float)wWeight / (float)wHeight, 0.1f, 100.0f);
 		shader.setMat4("projection", projection);
+		// retrieve the matrix uniform locations
+		glm::mat4 view = camera.GetViewMatrix();
+		shader.setMat4("view", view);
+
 
 		// render box
 		glBindVertexArray(VAO);
@@ -313,14 +280,36 @@ void process_input(GLFWwindow* window)
 	{
 		glfwSetWindowShouldClose(window, true);
 	}
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		camera.process_keyboard_input(UP, deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		camera.process_keyboard_input(DOWN, deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		camera.process_keyboard_input(LEFT, deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		camera.process_keyboard_input(RIGHT, deltaTime);
+	}
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
 	
+	lastX = xpos;
+	lastY = ypos;
+
+	camera.process_mouse_input(xoffset, yoffset);
 }
 
 void scroll_callback(GLFWwindow* window, double xOffset, double yOffset)
 {
-	
+	camera.process_mouse_scroll(yOffset);
 }
