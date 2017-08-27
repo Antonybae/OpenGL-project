@@ -46,6 +46,12 @@
     <None Include="basic_fragment_shader.fs">
       <Filter>Файлы ресурсов</Filter>
     </None>
+    <None Include="light_fragment_shader.fs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="light_vertex_shader.vs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\awesomeface.png">

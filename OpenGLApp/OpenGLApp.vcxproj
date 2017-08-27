@@ -134,6 +134,8 @@
   <ItemGroup>
     <None Include="basic_fragment_shader.fs" />
     <None Include="basic_vertex_shader.vs" />
+    <None Include="light_fragment_shader.fs" />
+    <None Include="light_vertex_shader.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\awesomeface.png" />
