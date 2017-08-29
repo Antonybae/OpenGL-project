@@ -18,17 +18,17 @@ const float defaultYaw = -90.0f;
 const float defaultPitch = 0.0f;
 const float defaultSpeed = 2.5f;
 const float defaultSens = 0.1f;
-const float defaultZoom = 45.0f;
+const float defaultZoom = 75.0f;
 
 class Camera
 {
+public:
 	glm::vec3 cameraPos;
 	glm::vec3 cameraFront;
 	glm::vec3 cameraUp;
 	glm::vec3 cameraRight;
 	glm::vec3 worldUP;
 
-public:
 	float m_yaw;
 	float m_pitch;
 
@@ -36,6 +36,7 @@ public:
 	float m_sens;
 	float m_zoom;
 
+	//
 	Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = defaultYaw, float pitch = defaultPitch) : cameraFront(glm::vec3(0.0f, 0.0f, -1.0f)), m_speed(defaultSpeed), m_sens(defaultSens), m_zoom(defaultZoom)
 	{
 		cameraPos = position;
@@ -44,7 +45,7 @@ public:
 		m_pitch = pitch;
 		updateCameraVectors();
 	}
-
+	//
 	Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : cameraFront(glm::vec3(0.0f, 0.0f, -1.0f)), m_speed(defaultSpeed), m_sens(defaultSens), m_zoom(defaultZoom)
 	{
 		cameraPos = glm::vec3(posX, posY, posZ);
@@ -54,32 +55,33 @@ public:
 		updateCameraVectors();
 	}
 
-
+	//
 	glm::mat4 GetViewMatrix()
 	{
 		return glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 	}
-
+	//
 	void process_keyboard_input(MovementDirection direction, float deltaTime)
 	{
-		if (direction == MovementDirection::UP)
+		float velocity = m_speed * deltaTime;
+		if (direction == UP)
 		{
-			cameraPos += m_speed * cameraFront * deltaTime;
+			cameraPos += cameraFront * velocity;
 		}
-		if (direction == MovementDirection::DOWN)
+		if (direction == DOWN)
 		{
-			cameraPos -= m_speed * cameraFront * deltaTime;
+			cameraPos -= cameraFront * velocity;
 		}
-		if (direction == MovementDirection::LEFT)
+		if (direction == LEFT)
 		{
-			cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * m_speed * deltaTime;
+			cameraPos -= cameraRight * velocity;
 		}
-		if (direction == MovementDirection::RIGHT)
+		if (direction == RIGHT)
 		{
-			cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * m_speed * deltaTime;
+			cameraPos += cameraRight *velocity;
 		}
 	}
-
+	//
 	void process_mouse_input(float xOffset, float yOffset)
 	{
 		xOffset *= m_sens;
@@ -98,10 +100,10 @@ public:
 		// Update Front, Right and Up Vectors using the updated Eular angles
 		updateCameraVectors();
 	}
-
+	//
 	void process_mouse_scroll(float yoffset)
 	{
-		if (m_zoom >= 1.0f && m_zoom <= 45.0f)
+		if (m_zoom >= 1.0f && m_zoom <= 75.0f)
 		{
 			m_zoom -= yoffset;
 		}
@@ -109,12 +111,13 @@ public:
 		{
 			m_zoom = 1.0f;
 		}
-		if (m_zoom >= 45.0f)
+		if (m_zoom >= 75.0f)
 		{
-			m_zoom = 45.0f;
+			m_zoom = 75.0f;
 		}
 	}
-
+	//
+private:
 	void updateCameraVectors()
 	{
 		glm::vec3 front;
@@ -128,6 +131,4 @@ public:
 	}
 	
 };
-
-
 #endif
