@@ -171,6 +171,9 @@ int main()
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		//set position of the light
+		lightPos = glm::vec3(cos(glfwGetTime()) * 3, 0, sin(glfwGetTime()) * 3);
+
 		// be sure to activate shader when setting uniforms/drawing objects
 		lightingShader.use();
 		lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
