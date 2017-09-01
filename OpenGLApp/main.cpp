@@ -176,8 +176,16 @@ int main()
 
 		// be sure to activate shader when setting uniforms/drawing objects
 		lightingShader.use();
-		lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-		lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+		lightingShader.setVec3("material.ambient", 0.0f, 0.1f, 0.06f);
+		lightingShader.setVec3("material.diffuse", 0.0f, 0.50980392f, 0.50980392f);
+		lightingShader.setVec3("material.specular", 0.50196078f, 0.50196078f, 0.50196078f);
+		lightingShader.setFloat("material.shininess", 25.0f);
+
+
+		lightingShader.setVec3("light.ambient", 1.0f, 1.0f, 1.0f);
+		lightingShader.setVec3("light.diffuse", 1.0f, 1.0f, 1.0f);
+		lightingShader.setVec3("light.specular", 1.0, 1.0, 1.0);
+
 		lightingShader.setVec3("lightPos", lightPos);
 		lightingShader.setVec3("viewPos", camera.cameraPos);
 
