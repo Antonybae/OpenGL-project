@@ -38,6 +38,12 @@
     <ClInclude Include="Camera.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Файлы исходного кода</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Файлы исходного кода</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="basic_vertex_shader.vs">
@@ -50,6 +56,12 @@
       <Filter>Файлы ресурсов</Filter>
     </None>
     <None Include="light_vertex_shader.vs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="model_loading.fs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="model_loading.vs">
       <Filter>Файлы ресурсов</Filter>
     </None>
   </ItemGroup>
