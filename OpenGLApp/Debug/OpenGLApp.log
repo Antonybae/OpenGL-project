@@ -1,9 +1,13 @@
 ﻿  main.cpp
-c:\users\1\documents\visual studio 2017\projects\openglapp\openglapp\main.cpp(146): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-c:\users\1\documents\visual studio 2017\projects\openglapp\openglapp\main.cpp(242): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-c:\users\1\documents\visual studio 2017\projects\openglapp\openglapp\main.cpp(243): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-c:\users\1\documents\visual studio 2017\projects\openglapp\openglapp\main.cpp(245): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-c:\users\1\documents\visual studio 2017\projects\openglapp\openglapp\main.cpp(246): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-c:\users\1\documents\visual studio 2017\projects\openglapp\openglapp\main.cpp(253): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
-  OpenGLApp.vcxproj -> C:\Users\1\documents\visual studio 2017\Projects\OpenGLApp\Debug\OpenGLApp.exe
-  OpenGLApp.vcxproj -> C:\Users\1\documents\visual studio 2017\Projects\OpenGLApp\Debug\OpenGLApp.pdb (Partial PDB)
+c:\users\1\documents\visual studio 2017\projects\opengl-project\openglapp\main.cpp(28): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\opengl-project\openglapp\main.cpp(29): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\opengl-project\openglapp\main.cpp(229): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\opengl-project\openglapp\main.cpp(336): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\opengl-project\openglapp\main.cpp(337): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\opengl-project\openglapp\main.cpp(341): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\opengl-project\openglapp\main.cpp(342): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\opengl-project\openglapp\main.cpp(344): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\opengl-project\openglapp\main.cpp(345): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+c:\users\1\documents\visual studio 2017\projects\opengl-project\openglapp\main.cpp(354): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  OpenGLApp.vcxproj -> C:\Users\1\Documents\Visual Studio 2017\Projects\OpenGL-project\Debug\OpenGLApp.exe
+  OpenGLApp.vcxproj -> C:\Users\1\Documents\Visual Studio 2017\Projects\OpenGL-project\Debug\OpenGLApp.pdb (Partial PDB)

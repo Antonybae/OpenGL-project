@@ -52,6 +52,18 @@
     <None Include="light_vertex_shader.vs">
       <Filter>Файлы ресурсов</Filter>
     </None>
+    <None Include="advanced.fs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="advanced.vs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="framebuffer.fs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="framebuffer.vs">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\awesomeface.png">
